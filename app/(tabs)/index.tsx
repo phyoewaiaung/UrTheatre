@@ -51,6 +51,7 @@ export default function HomeScreen() {
         <ThemedText type="title" style={styles.header}>Popular Movies</ThemedText>
         <ThemedText style={styles.subtitle}>Discover the most popular movies right now</ThemedText>
         <FlatList
+          key="grid"
           data={movies}
           numColumns={2}
           columnWrapperStyle={styles.columnWrapper}
