@@ -52,8 +52,9 @@ export default function HomeScreen() {
         <ThemedText style={styles.subtitle}>Discover the most popular movies right now</ThemedText>
         <FlatList
           data={movies}
-          horizontal
-          showsHorizontalScrollIndicator={false}
+          numColumns={2}
+          columnWrapperStyle={styles.columnWrapper}
+          showsVerticalScrollIndicator={false}
           renderItem={({ item }) => (
             <MovieCard
               title={item.title}
@@ -96,5 +97,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     opacity: 0.7,
     marginBottom: 24,
+  },
+  columnWrapper: {
+    justifyContent: 'space-between',
+    gap: 16,
+    paddingBottom: 16,
   },
 });

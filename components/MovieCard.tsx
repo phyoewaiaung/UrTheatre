@@ -38,15 +38,14 @@ export function MovieCard({
 
 const styles = StyleSheet.create({
   container: {
-    width: 280,
-    marginRight: 16,
+    width: '48%',
     borderRadius: 12,
     overflow: 'hidden',
     backgroundColor: '#ffffff10',
   },
   poster: {
     width: '100%',
-    height: 380,
+    height: 260,
     borderRadius: 8,
   },
   infoContainer: {
