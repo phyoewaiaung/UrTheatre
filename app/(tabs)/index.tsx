@@ -58,15 +58,12 @@ export default function HomeScreen() {
           showsVerticalScrollIndicator={false}
           renderItem={({ item }) => (
             <MovieCard
+              id={item.id}
               title={item.title}
               posterPath={item.poster_path}
               rating={item.vote_average}
               overview={item.overview}
               releaseDate={item.release_date}
-              onPress={() => {
-                // Handle navigation to movie details
-                console.log('Movie pressed:', item.title);
-              }}
             />
           )}
           keyExtractor={(item) => item.id.toString()}

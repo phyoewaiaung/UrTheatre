@@ -1,27 +1,31 @@
 
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { useRouter } from 'expo-router';
 import { ThemedText } from './ThemedText';
 import { ThemedView } from './ThemedView';
 
 type MovieCardProps = {
+  id: number;
   title: string;
   posterPath: string;
   rating: number;
   overview: string;
   releaseDate: string;
-  onPress: () => void;
 };
 
 export function MovieCard({ 
+  id,
   title, 
   posterPath, 
   rating, 
   overview, 
-  releaseDate, 
-  onPress 
+  releaseDate
 }: MovieCardProps) {
+  const router = useRouter();
   return (
-    <TouchableOpacity onPress={onPress} style={styles.container}>
+    <TouchableOpacity 
+      onPress={() => router.push(`/movie/${id}`)} 
+      style={styles.container}>
       <Image
         source={{ uri: `https://image.tmdb.org/t/p/w500${posterPath}` }}
         style={styles.poster}
