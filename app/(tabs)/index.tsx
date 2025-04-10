@@ -1,10 +1,13 @@
-
-import { useEffect, useState } from 'react';
-import { StyleSheet, FlatList, ActivityIndicator } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { MovieCard } from '@/components/MovieCard';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import { useEffect, useState } from "react";
+import { StyleSheet, FlatList, ActivityIndicator } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { MovieCard } from "@/components/MovieCard";
+import { ThemedText } from "@/components/ThemedText";
+import { ThemedView } from "@/components/ThemedView";
+import Animated, {
+  FadeInDown,
+  FadeInUp,
+} from "react-native-reanimated";
 
 type Movie = {
   id: number;
@@ -48,14 +51,28 @@ export default function HomeScreen() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <ThemedView style={styles.container}>
-        <ThemedText type="title" style={styles.header}>Popular Movies</ThemedText>
-        <ThemedText style={styles.subtitle}>Discover the most popular movies right now</ThemedText>
+        <Animated.View entering={FadeInDown.duration(800)}>
+          <ThemedText type="title" style={styles.appName}>
+            🎬 UrTheatre
+          </ThemedText>
+        </Animated.View>
+
+        <Animated.View entering={FadeInUp.delay(300).duration(1000)}>
+          <ThemedText style={styles.tagline}>
+            Your gateway to the world of movies ✨
+          </ThemedText>
+          <ThemedText style={styles.description}>
+            Dive into the latest blockbusters and find your next favorite film.
+          </ThemedText>
+        </Animated.View>
+
         <FlatList
           key="grid"
           data={movies}
           numColumns={2}
           columnWrapperStyle={styles.columnWrapper}
           showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingTop: 16 }}
           renderItem={({ item }) => (
             <MovieCard
               id={item.id}
@@ -83,21 +100,31 @@ const styles = StyleSheet.create({
   },
   loadingContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
-  header: {
-    fontSize: 32,
-    fontWeight: 'bold',
+  appName: {
+    fontSize: 36,
+    fontWeight: "bold",
+    textAlign: "center",
+    color: "#E50914", // Netflix-style red for flair
     marginBottom: 8,
+    paddingTop: 16,
   },
-  subtitle: {
-    fontSize: 16,
+  tagline: {
+    fontSize: 18,
+    textAlign: "center",
+    marginBottom: 4,
+    fontWeight: "600",
+  },
+  description: {
+    fontSize: 14,
+    textAlign: "center",
     opacity: 0.7,
     marginBottom: 24,
   },
   columnWrapper: {
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
     gap: 16,
     paddingBottom: 16,
   },
