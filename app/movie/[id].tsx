@@ -14,6 +14,10 @@ type MovieDetails = {
   release_date: string;
   genres: Array<{ id: number; name: string }>;
   runtime: number;
+  tagline: string;
+  vote_count: number;
+  spoken_languages: Array<{ english_name: string }>;
+  production_companies: Array<{ name: string }>;
 };
 
 export default function MovieDetailScreen() {
@@ -62,7 +66,26 @@ export default function MovieDetailScreen() {
           <ThemedText style={styles.genres}>
             {movie.genres?.map(g => g.name).join(', ')}
           </ThemedText>
+          {movie.tagline && (
+            <ThemedText style={styles.tagline}>"{movie.tagline}"</ThemedText>
+          )}
           <ThemedText style={styles.overview}>{movie.overview}</ThemedText>
+          <ThemedView style={styles.additionalInfo}>
+            <ThemedText style={styles.infoLabel}>Languages:</ThemedText>
+            <ThemedText style={styles.infoValue}>
+              {movie.spoken_languages?.map(lang => lang.english_name).join(', ')}
+            </ThemedText>
+            
+            <ThemedText style={styles.infoLabel}>Studios:</ThemedText>
+            <ThemedText style={styles.infoValue}>
+              {movie.production_companies?.map(company => company.name).join(', ')}
+            </ThemedText>
+
+            <ThemedText style={styles.infoLabel}>Total Votes:</ThemedText>
+            <ThemedText style={styles.infoValue}>
+              {movie.vote_count?.toLocaleString()} ratings
+            </ThemedText>
+          </ThemedView>
         </ThemedView>
       </ScrollView>
     </SafeAreaView>
@@ -70,6 +93,29 @@ export default function MovieDetailScreen() {
 }
 
 const styles = StyleSheet.create({
+  tagline: {
+    fontSize: 18,
+    fontStyle: 'italic',
+    opacity: 0.8,
+    marginBottom: 16,
+    textAlign: 'center',
+  },
+  additionalInfo: {
+    marginTop: 24,
+    padding: 16,
+    borderRadius: 8,
+    backgroundColor: '#ffffff10',
+  },
+  infoLabel: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    marginTop: 8,
+  },
+  infoValue: {
+    fontSize: 14,
+    opacity: 0.8,
+    marginBottom: 8,
+  },
   container: {
     flex: 1,
   },
