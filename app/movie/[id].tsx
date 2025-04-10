@@ -23,10 +23,17 @@ type MovieDetails = {
 export default function MovieDetailScreen() {
   const { id } = useLocalSearchParams();
   const [movie, setMovie] = useState<MovieDetails | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     fetchMovieDetails();
   }, [id]);
+
+  useEffect(() => {
+    if (movie?.title) {
+      router.setParams({ title: movie.title });
+    }
+  }, [movie?.title]);
 
   const fetchMovieDetails = async () => {
     try {
